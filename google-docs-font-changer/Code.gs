@@ -28,10 +28,7 @@ function changeSelectedTextFont(fontName) {
   selectedElements.forEach(function(rangeElement) {
     const element = rangeElement.getElement();
 
-    if (!element.editAsText) {
-      return;
-    }
-
+    
     const text = element.editAsText();
 
     if (rangeElement.isPartial()) {
