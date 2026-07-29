@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 16px;
+      color: #202124;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    select,
+    button {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    select {
+      padding: 9px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      padding: 10px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #1a73e8;
+      color: white;
+      font-size: 14px;
+    }
+
+    button.secondary {
+      background: #5f6368;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <h2>Font Changer</h2>
+
+  <label for="font">Choose a font</label>
+
+  <select id="font">
+    <option value="Arial">Arial</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Trebuchet MS">Trebuchet MS</option>
+  </select>
+
+  <button onclick="changeSelection()">Change Selected Text</button>
+  <button class="secondary" onclick="changeDocument()">Change Whole Document</button>
+
+  <div id="message"></div>
+
+  <script>
+    function getSelectedFont() {
+      return document.getElementById('font').value;
+    }
+
+    function showMessage(result) {
+      const message = document.getElementById('message');
+      message.textContent = result.message;
+    }
+
+    function showError(error) {
+      const message = document.getElementById('message');
+      message.textContent = 'Something went wrong: ' + error.message;
+    }
+
+    function changeSelection() {
+      google.script.run
+        .withSuccessHandler(showMessage)
+        .withFailureHandler(showError)
+        .changeSelectedTextFont(getSelectedFont());
+    }
+
+    function changeDocument() {
+      google.script.run
+        .withSuccessHandler(showMessage)
+        .withFailureHandler(showError)
+        .changeWholeDocumentFont(getSelectedFont());
+    }
+  </script>
+</body>
+</html>
